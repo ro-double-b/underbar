@@ -106,6 +106,19 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var result = [array[0]]
+    _.each(array, function(item) {
+      var temp = true
+        _.each(result, function(resultItem) {
+          if(item === resultItem) {
+            temp = false
+          }
+        })
+      if(temp === true) {
+        result.push(item)
+      }
+    })
+    return result 
   };
 
 
