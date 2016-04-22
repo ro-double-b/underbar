@@ -214,6 +214,22 @@
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
+    var result = false
+    var counter = 0
+    if(iterator === undefined) {
+      iterator = function(result) {
+        return result
+      }
+    }
+    _.each(collection, function(item, result) {
+      if(!iterator(item) != true) {
+        counter = counter + 1
+      }
+    })
+    if(counter > 0) {
+      result = true
+    }
+    return result
     // TIP: There's a very clever way to re-use every() here.
   };
 
