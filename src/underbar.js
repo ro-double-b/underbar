@@ -93,8 +93,8 @@
   // copying code in and modifying it
   _.reject = function(collection, test) {
     return _.filter(collection, function(func) {
-      return !test(func)
-    })
+      return !test(func);
+    });
 
     // var result = [];
     // _.each(collection, function(item) {
@@ -107,19 +107,29 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
-    var result = [array[0]];
+    var resultObj = {};
+    var result = [];
     _.each(array, function(item) {
-      var temp = true;
-        _.each(result, function(resultItem) {
-          if(item === resultItem) {
-            temp = false;
-          };
-        });
-      if(temp === true) {
+      if(resultObj[item] === undefined) {
+        resultObj[item] = 1;
         result.push(item);
       };
     });
     return result;
+
+    // var result = [array[0]];
+    // _.each(array, function(item) {
+    //   var temp = true;
+    //     _.each(result, function(resultItem) {
+    //       if(item === resultItem) {
+    //         temp = false;
+    //       };
+    //     });
+    //   if(temp === true) {
+    //     result.push(item);
+    //   };
+    // });
+    // return result;
   };
 
   // Return the results of applying an iterator to each element.
