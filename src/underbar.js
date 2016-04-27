@@ -339,8 +339,8 @@
 
       _.each(results, function(itemsInput, indexInput) {
         if(itemsInput !== undefined) {
-          _.each(itemsInput[0], function(itsmArgs, indexArgs) {
-            if(itemsInput[0][0][indexArgs] == arg[0][indexArgs]) {
+          _.each(itemsInput[0][0], function(itemsArgs, indexArgs) {
+            if(itemsArgs === arg[0][indexArgs]) {
               alreadyCalledArgs = true
               resultIndex = indexInput
             } else {
