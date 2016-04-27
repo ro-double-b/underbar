@@ -340,7 +340,7 @@
       _.each(results, function(itemsInput, indexInput) {
         if(itemsInput !== undefined) {
           _.each(itemsInput[0], function(itsmArgs, indexArgs) {
-            if(itemsInput[0][indexArgs] == arg[indexArgs]) {
+            if(itemsInput[0][0][indexArgs] == arg[0][indexArgs]) {
               alreadyCalledArgs = true
               resultIndex = indexInput
             } else {
@@ -350,8 +350,8 @@
         }
       })
 
-      if(alreadyCalledArgs === true && type === results[resultIndex][2]) {
-        solution = results[resultIndex][3]
+      if(alreadyCalledArgs === true && type === results[resultIndex][1]) {
+        solution = results[resultIndex][2]
       } else {
         var newSolution = []
         newSolution.push(arg)
@@ -363,11 +363,6 @@
       return solution
     }
   }  
-
-
-
-
-
 
   //   var results = []
 
