@@ -326,43 +326,47 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-    var results = []
+    var results = [];
 
     return function() {
-      var solution
-      var alreadyCalledArgs = false
-      var sameType = false
+      var solution;
+      var alreadyCalledArgs = false;
+      var sameType = false;
 
-      var arg = Array.prototype.slice.call(arguments)
-      var type = typeof(arg[0])
-      var resultIndex
+      var arg = Array.prototype.slice.call(arguments);
+      var type = typeof(arg[0]);
+      var resultIndex;
 
-      _.each(results, function(itemsInput, indexInput) {
-        if(itemsInput !== undefined) {
-          _.each(itemsInput[0][0], function(itemsArgs, indexArgs) {
-            if(itemsArgs === arg[0][indexArgs]) {
-              alreadyCalledArgs = true
-              resultIndex = indexInput
-            } else {
-              alreadyCalledArgs = false
-            }
-          })
-        }
-      })
+      if(type === "number") {
+        arg = [arg];
+      }
+
+        _.each(results, function(itemsInput, indexInput) {
+          if(itemsInput !== undefined) {
+            _.each(itemsInput[0][0], function(itemsArgs, indexArgs) {
+              if(itemsArgs === arg[0][indexArgs]) {
+                alreadyCalledArgs = true;
+                resultIndex = indexInput;
+              } else {
+                alreadyCalledArgs = false;
+              };
+            });
+          };
+        });
 
       if(alreadyCalledArgs === true && type === results[resultIndex][1]) {
-        solution = results[resultIndex][2]
+        solution = results[resultIndex][2];
       } else {
-        var newSolution = []
-        newSolution.push(arg)
-        newSolution.push(type)
-        solution = func.apply(this, arguments)
-        newSolution.push(solution)
-        results.push(newSolution)
-      }
-      return solution
-    }
-  }  
+        var newSolution = [];
+        newSolution.push(arg);
+        newSolution.push(type);
+        solution = func.apply(this, arguments);
+        newSolution.push(solution);
+        results.push(newSolution);
+      };
+      return solution;
+    };
+  };
 
   //   var results = []
 
