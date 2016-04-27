@@ -326,16 +326,88 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-    var results = {};
-    var types = {};
+    var results = []
+
     return function() {
-      var args = Array.prototype.slice.call(arguments);
-      if(results[args] === undefined) {
-        results[args] = func.apply(this, args);
-      };
-        return results[args];
-    };
-  };
+      var solution
+      var alreadyCalledArgs = false
+      var sameType = false
+
+      var arg = Array.prototype.slice.call(arguments)
+      var type = typeof(arg[0])
+      var resultIndex
+
+      _.each(results, function(itemsInput, indexInput) {
+        if(itemsInput !== undefined) {
+          _.each(itemsInput[0], function(itsmArgs, indexArgs) {
+            if(itemsInput[0][indexArgs] == arg[indexArgs]) {
+              alreadyCalledArgs = true
+              resultIndex = indexInput
+            } else {
+              alreadyCalledArgs = false
+            }
+          })
+        }
+      })
+
+      if(alreadyCalledArgs === true && type === results[resultIndex][2]) {
+        solution = results[resultIndex][3]
+      } else {
+        var newSolution = []
+        newSolution.push(arg)
+        newSolution.push(type)
+        solution = func.apply(this, arguments)
+        newSolution.push(solution)
+        results.push(newSolution)
+      }
+      return solution
+    }
+  }  
+
+
+
+
+
+
+  //   var results = []
+
+  //   var NewComputation = function(argsInp, typeInp, solutionInp) {
+  //     this.args = argsInp;
+  //     this.type = typeInp;
+  //     this.solution = solutionInp
+  //   }
+  //   var counter = 1
+
+  //   return function() {
+  //     var argsThisTime = Array.prototype.slice.call(arguments);
+  //     var typeThisTime = typeof(arguments[0])
+  //     var alreadyCalled = false
+  //     var solution
+  //     _.each(results, function(item) {
+  //       if(results[item][args] === argsThisTime) {
+  //         alreadyCalled = true
+  //       }
+  //     })
+  //     if(alreadyCalled = false) {
+  //       solution = func.apply(this, arguments)
+  //       counter = new NewComputation(argsThisTime, typeThisTime, solution)
+  //       results.push(counter)
+  //     }
+  //     return solution
+  //   }
+  // }
+
+
+    // var results = {};
+    // var types = {};
+    // return function() {
+    //   var args = Array.prototype.slice.call(arguments);
+    //   if(results[args] === undefined) {
+    //     results[args] = func.apply(this, args);
+    //   };
+    //     return results[args];
+    // };
+  // };
 
   // Delays a function for the given number of milliseconds, and then calls
   // it with the arguments supplied.
