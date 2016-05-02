@@ -214,7 +214,7 @@
       if(iterator === undefined) {
         iterator = _.identity;
       };
-      return !iterator(item) != result;
+      return Boolean(iterator(item)) == result;
     }, true);
   };
 
