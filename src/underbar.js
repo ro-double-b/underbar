@@ -227,7 +227,6 @@
   // TIP: There's a very clever way to re-use every() here.
   _.some = function(collection, iterator) {
     var result = false;
-    var counter = 0;
     if(iterator === undefined) {
       iterator = _.identity;
       };
