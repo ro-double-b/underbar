@@ -217,7 +217,7 @@
       if(result !== false) {
         return Boolean(iterator(item)) === result;
       }
-      return false
+      return false;
     }, true);
   };
 
@@ -229,10 +229,8 @@
     var result = false;
     var counter = 0;
     if(iterator === undefined) {
-      iterator = function(result) {
-        return result;
+      iterator = _.identity
       };
-    };
     _.each(collection, function(item, result) {
       if(!iterator(item) != true) {
         counter = counter + 1;
