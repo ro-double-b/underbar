@@ -229,17 +229,29 @@
     var result = false;
     var counter = 0;
     if(iterator === undefined) {
-      iterator = _.identity
+      iterator = _.identity;
       };
-    _.each(collection, function(item, result) {
-      if(!iterator(item) != true) {
-        counter = counter + 1;
+    _.each(collection, function(item) {
+      if(!result) {
+      result = Boolean(iterator(item));
       };
     });
-    if(counter > 0) {
-      result = true;
-    };
     return result;
+    
+    // var result = false;
+    // var counter = 0;
+    // if(iterator === undefined) {
+    //   iterator = _.identity
+    //   };
+    // _.each(collection, function(item, result) {
+    //   if(!iterator(item) != true) {
+    //     counter = counter + 1;
+    //   };
+    // });
+    // if(counter > 0) {
+    //   result = true;
+    // };
+    // return result;
   };
 
   /**
