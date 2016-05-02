@@ -226,16 +226,15 @@
   // 
   // TIP: There's a very clever way to re-use every() here.
   _.some = function(collection, iterator) {
-    var result = false;
     if(iterator === undefined) {
       iterator = _.identity;
       };
-    _.each(collection, function(item) {
+    return _.reduce(collection, function(result, item) {
       if(!result) {
-      result = Boolean(iterator(item));
+      return Boolean(iterator(item));
       };
-    });
-    return result;
+      return true
+    }, false);
     
     // var result = false;
     // var counter = 0;
