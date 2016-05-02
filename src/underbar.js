@@ -212,9 +212,7 @@
   _.every = function(collection, iterator) {
     return _.reduce(collection, function(result, item) {
       if(iterator === undefined) {
-        iterator = function(result) {
-          return result;
-        };
+        iterator = _.identity;
       };
       return !iterator(item) != result;
     }, true);
