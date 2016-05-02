@@ -214,8 +214,8 @@
       iterator = _.identity;
     };
     return _.reduce(collection, function(result, item) {
-      if(result !== false) {
-        return Boolean(iterator(item)) === result;
+      if(result === true) {
+        return Boolean(iterator(item))
       }
       return false;
     }, true);
