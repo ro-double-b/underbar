@@ -351,7 +351,7 @@
       }
 
         _.each(results, function(itemsInput, indexInput) {
-          if(itemsInput !== undefined) {
+          // if(itemsInput !== undefined) {
             _.each(itemsInput[0][0], function(itemsArgs, indexArgs) {
               if(itemsArgs === arg[0][indexArgs]) {
                 alreadyCalledArgs = true;
@@ -360,7 +360,7 @@
                 alreadyCalledArgs = false;
               };
             });
-          };
+          // };
         });
 
       if(alreadyCalledArgs === true && type === results[resultIndex][1]) {
