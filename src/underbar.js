@@ -203,8 +203,7 @@
       if (accumulator) {
         return true;
       };
-      accumulator = item === target;
-      return accumulator
+      return item === target;
     }, false);
   };
 
@@ -214,11 +213,12 @@
     if(iterator === undefined) {
       iterator = _.identity;
     };
-    return _.reduce(collection, function(result, item) {
-      if(result === true) {
-        return Boolean(iterator(item))
+    return _.reduce(collection, function(accumulator, item) {
+      if(accumulator === true) {
+        return Boolean(iterator(item));
       }
       return false;
+
     }, true);
   };
 
