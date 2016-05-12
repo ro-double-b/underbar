@@ -214,11 +214,10 @@
       iterator = _.identity;
     };
     return _.reduce(collection, function(accumulator, item) {
-      if(accumulator === true) {
+      if(accumulator) {
         return Boolean(iterator(item));
-      }
+      };
       return false;
-
     }, true);
   };
 
@@ -234,7 +233,7 @@
       if(!result) {
       return Boolean(iterator(item));
       };
-      return true
+      return true;
     }, false);
     
     // var result = false;
