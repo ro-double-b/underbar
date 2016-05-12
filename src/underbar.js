@@ -199,11 +199,12 @@
   // TIP: Many iteration problems can be most easily expressed in
   // terms of reduce(). Here's a freebie to demonstrate!
   _.contains = function(collection, target) {
-    return _.reduce(collection, function(wasFound, item) {
-      if (wasFound) {
+    return _.reduce(collection, function(accumulator, item) {
+      if (accumulator) {
         return true;
       };
-      return item === target;
+      accumulator = item === target;
+      return accumulator
     }, false);
   };
 
