@@ -227,14 +227,21 @@
   // TIP: There's a very clever way to re-use every() here.
   _.some = function(collection, iterator) {
     if(iterator === undefined) {
-      iterator = _.identity;
-      };
-    return _.reduce(collection, function(result, item) {
-      if(!result) {
-      return Boolean(iterator(item));
-      };
-      return true;
-    }, false);
+      iterator = _.identity
+    }
+    return !(_.every(collection, function(item) {
+      return !iterator(item)
+    }))
+
+    // if(iterator === undefined) {
+    //   iterator = _.identity;
+    //   };
+    // return _.reduce(collection, function(result, item) {
+    //   if(!result) {
+    //   return Boolean(iterator(item));
+    //   };
+    //   return true;
+    // }, false);
     
     // var result = false;
     // var counter = 0;
