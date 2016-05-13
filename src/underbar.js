@@ -227,11 +227,12 @@
   // TIP: There's a very clever way to re-use every() here.
   _.some = function(collection, iterator) {
     if(iterator === undefined) {
-      iterator = _.identity
-    }
-    return !(_.every(collection, function(item) {
-      return !iterator(item)
-    }))
+      iterator = _.identity;
+    };
+    var result = _.every(collection, function(item) {
+      return !iterator(item);
+    });
+    return !result;
 
     // if(iterator === undefined) {
     //   iterator = _.identity;
