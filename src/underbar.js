@@ -290,10 +290,10 @@
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
-    _.each(Array.prototype.slice.call(arguments), function(args) {
-    for(var key in args) {
+    _.each(Array.prototype.slice.call(arguments), function(argArr) {
+    for(var key in argArr) {
       if(obj[key] === undefined){
-        obj[key] = args[key];
+        obj[key] = argArr[key];
       };
     };
   });
