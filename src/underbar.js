@@ -279,9 +279,9 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
-    _.each(Array.prototype.slice.call(arguments), function(args) {
-    for(var key in args) {
-      obj[key] = args[key];
+    _.each(Array.prototype.slice.call(arguments), function(argArr) {
+    for(var key in argArr) {
+      obj[key] = argArr[key];
     };
   });
     return obj;
