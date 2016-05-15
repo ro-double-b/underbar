@@ -290,7 +290,7 @@
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
-    _.each(Array.prototype.slice.call(arguments), function(argArr) {
+    _.each(arguments, function(argArr) {
     for(var key in argArr) {
       if(obj[key] === undefined){
         obj[key] = argArr[key];
@@ -343,86 +343,89 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-    var results = [];
+
+    var resultArr = [];
 
     return function() {
       var solution;
-      var alreadyCalledArgs = false;
-      var sameType = false;
+      var alreadyCalled = false;
 
-      var arg = Array.prototype.slice.call(arguments);
-      var type = typeof(arg[0]);
-      var resultIndex;
+      var argsThisTime = Array.prototype.slice.call(arguments);
+      var typeThisTime = typeof(argsThisTime[0]);
 
-      if(type === "number") {
-        arg = [arg];
+      if(typeThisTime === "object") {
+        argsThisTime = argsThisTime[0];
       }
 
-        _.each(results, function(itemsInput, indexInput) {
-          // if(itemsInput !== undefined) {
-            _.each(itemsInput[0][0], function(itemsArgs, indexArgs) {
-              if(itemsArgs === arg[0][indexArgs]) {
-                alreadyCalledArgs = true;
-                resultIndex = indexInput;
-              } else {
-                alreadyCalledArgs = false;
-              };
-            });
-          // };
+
+      _.each(resultArr, function(resultObj) {
+        var argTest = true;
+        _.each(resultObj.arg, function(item, index) {
+
+          if(item !== (argsThisTime)[index]) {
+            argTest = false;
+          };
         });
 
-      if(alreadyCalledArgs === true && type === results[resultIndex][1]) {
-        solution = results[resultIndex][2];
-      } else {
-        var newSolution = [];
-        newSolution.push(arg);
-        newSolution.push(type);
+        if(resultObj.type === typeThisTime && argTest) {
+            alreadyCalled = true;
+            solution = resultObj.solution;
+        };
+      });
+
+      if(alreadyCalled === false) {
+        var newSolution = {};
+        newSolution.arg = argsThisTime;
+        newSolution.type = typeThisTime;
         solution = func.apply(this, arguments);
-        newSolution.push(solution);
-        results.push(newSolution);
+        newSolution.solution = solution;
+        resultArr.push(newSolution);
+
       };
       return solution;
     };
   };
 
-  //   var results = []
-
-  //   var NewComputation = function(argsInp, typeInp, solutionInp) {
-  //     this.args = argsInp;
-  //     this.type = typeInp;
-  //     this.solution = solutionInp
-  //   }
-  //   var counter = 1
+  //   var results = [];
 
   //   return function() {
-  //     var argsThisTime = Array.prototype.slice.call(arguments);
-  //     var typeThisTime = typeof(arguments[0])
-  //     var alreadyCalled = false
-  //     var solution
-  //     _.each(results, function(item) {
-  //       if(results[item][args] === argsThisTime) {
-  //         alreadyCalled = true
-  //       }
-  //     })
-  //     if(alreadyCalled = false) {
-  //       solution = func.apply(this, arguments)
-  //       counter = new NewComputation(argsThisTime, typeThisTime, solution)
-  //       results.push(counter)
+  //     var solution;
+  //     var alreadyCalledArgs = false;
+  //     var sameType = false;
+
+  //     var arg = Array.prototype.slice.call(arguments);
+  //     var type = typeof(arg[0]);
+  //     var resultIndex;
+
+  //     if(type === "number") {
+  //       arg = [arg];
   //     }
-  //     return solution
-  //   }
-  // }
 
+  //       _.each(results, function(itemsInput, indexInput) {
+  //         // if(itemsInput !== undefined) {
+  //           _.each(itemsInput[0][0], function(itemsArgs, indexArgs) {
+  //             if(itemsArgs === arg[0][indexArgs]) {
+  //               alreadyCalledArgs = true;
+  //               resultIndex = indexInput;
+  //             } else {
+  //               alreadyCalledArgs = false;
+  //             };
+  //           });
+  //         // };
+  //       });
 
-    // var results = {};
-    // var types = {};
-    // return function() {
-    //   var args = Array.prototype.slice.call(arguments);
-    //   if(results[args] === undefined) {
-    //     results[args] = func.apply(this, args);
-    //   };
-    //     return results[args];
-    // };
+  //     if(alreadyCalledArgs === true && type === results[resultIndex][1]) {
+  //       solution = results[resultIndex][2];
+  //     } else {
+  //       var newSolution = [];
+  //       newSolution.push(arg);
+  //       newSolution.push(type);
+  //       solution = func.apply(this, arguments);
+  //       newSolution.push(solution);
+  //       results.push(newSolution);
+  //     };
+  //     return solution;
+  //   };
   // };
 
   // Delays a function for the given number of milliseconds, and then calls
